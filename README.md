@@ -1,4 +1,4 @@
-# 🎮 Free Fire UID Info API (Full Detail Response)
+# 🎮 Free Fire UID Info API 
 
 A secure **Express.js API** to fetch **complete Free Fire player data using UID** with structured JSON output.
 
