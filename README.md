@@ -1,96 +1,29 @@
-# 🔒 Secure Free Fire API (Express.js)
+# 🎮 Free Fire UID Info API (Full Detail Response)
 
-A secure **Express.js API wrapper** that hides the original API source and protects your server with API key authentication, rate limiting, and clean structure.
+A secure **Express.js API** to fetch **complete Free Fire player data using UID** with structured JSON output.
 
 ---
 
 ## 🚀 Features
 
-* 🔐 Hide real API endpoint
-* 🛡️ API Key protection
-* 🚫 Rate limiting (anti-spam)
-* 🌐 Clean REST API
-* ⚡ Fast & lightweight
-* 🔒 Environment-based config
+* 🔍 Get full player profile by UID
+* 📊 Detailed structured response (account, clan, pet, stats, etc.)
+* 🔒 Hidden external API
+* 🛡️ API key protection
+* 🚫 Rate limiting
+* ⚡ Fast & clean JSON
 
 ---
 
-## 📁 Project Structure
+## 📡 Endpoint
 
 ```
-secure-api/
-│
-├── package.json
-├── .env
-├── server.js
-│
-├── routes/
-│   └── api.js
-│
-├── controllers/
-│   └── apiController.js
-│
-├── services/
-│   └── externalService.js
-│
-├── middlewares/
-│   ├── apiKey.js
-│   ├── rateLimit.js
-│   └── hideServer.js
-│
-└── utils/
-    └── helper.js
+GET /api/player?uid=PLAYER_UID
 ```
 
 ---
 
-## 📦 Installation
-
-```bash
-git clone <your-repo>
-cd secure-api
-npm install
-```
-
----
-
-## ⚙️ Environment Setup
-
-Create `.env` file:
-
-```
-PORT=3000
-API_KEY=your_secret_key
-TARGET_API=https://joyhitpro.com/ff.php
-```
-
-⚠️ Never share your `.env` file publicly.
-
----
-
-## ▶️ Run Server
-
-```bash
-node server.js
-```
-
-Server will run on:
-
-```
-http://localhost:3000
-```
-
----
-
-## 📡 API Usage
-
-### Endpoint
-
-```
-GET /api/player?uid=12345678
-```
-
-### Headers
+## 🔐 Headers
 
 ```
 x-api-key: your_secret_key
@@ -98,72 +31,147 @@ x-api-key: your_secret_key
 
 ---
 
-## ✅ Example Request
+## 📥 Example Request
 
 ```bash
 curl -H "x-api-key: your_secret_key" \
-http://localhost:3000/api/player?uid=12345678
+"http://localhost:3000/api/player?uid=12345678"
 ```
 
 ---
 
-## 📥 Example Response
+## 📤 Example Response (Full Detail)
 
 ```json
 {
   "status": true,
   "data": {
-    "...": "response from external API"
-  }
+    "basicInfo": {
+      "accountId": "12345678",
+      "nickname": "FB: @GMRemyX",
+      "level": "68",
+      "region": "SG",
+      "liked": "3778277",
+      "rank": "323",
+      "rankingPoints": "4648",
+      "csRank": "316",
+      "csRankingPoints": "64",
+      "createAt": "2017-12-06 13:19:29",
+      "lastLoginAt": "2026-04-04 10:05:09"
+    },
+    "clanBasicInfo": {
+      "clanId": "60893361",
+      "clanName": "MUMMYEATTEAM",
+      "clanLevel": "7",
+      "memberNum": "35"
+    },
+    "petInfo": {
+      "name": "SiNo",
+      "level": "7",
+      "exp": "6000"
+    },
+    "creditScoreInfo": {
+      "creditScore": "100"
+    },
+    "profileInfo": {
+      "avatarId": "902000154",
+      "equipedSkills": "5306"
+    },
+    "socialInfo": {
+      "signature": "FB : GM Remy | TikTok : gmremyx | IG GM Remy"
+    }
+  },
+  "server_used": "EUROPE",
+  "timestamp": "2026-04-04 22:15"
 }
 ```
 
 ---
 
-## 🔒 Security Features
+## 📊 Field Explanation
 
-* API key required for all requests
-* Rate limiting (max requests per minute)
-* Hidden backend API (via `.env`)
-* Removed `X-Powered-By` header
-* Structured backend layers
+### 👤 basicInfo
 
----
-
-## 🛠️ Tech Stack
-
-* Node.js
-* Express.js
-* Axios
-* dotenv
-* express-rate-limit
+* `accountId` → Player UID
+* `nickname` → Player name
+* `level` → Account level
+* `region` → Server region
+* `liked` → Total likes
+* `rank` → Battle Royale rank
+* `csRank` → Clash Squad rank
 
 ---
 
-## ⚠️ Notes
+### 🏰 clanBasicInfo
 
-* This uses a third-party API (unofficial)
-* The external API may go offline anytime
-* Do not rely on it for critical systems
+* `clanName` → Guild name
+* `clanLevel` → Guild level
+* `memberNum` → Members count
 
 ---
 
-## 🚀 Future Improvements
+### 🐾 petInfo
+
+* `name` → Pet name
+* `level` → Pet level
+* `exp` → Pet experience
+
+---
+
+### 💯 creditScoreInfo
+
+* Player behavior score (0–100)
+
+---
+
+### 🎨 profileInfo
+
+* Avatar ID
+* Equipped skills
+
+---
+
+### 🌐 socialInfo
+
+* Player bio / signature
+
+---
+
+## 🔒 Security
+
+* API key required
+* Rate limit enabled
+* External API hidden
+* No direct access to source
+
+---
+
+## ⚠️ Disclaimer
+
+* This API is **not official**
+* Data depends on external provider
+* Not affiliated with Garena Free Fire
+
+---
+
+## 🚀 Future Plans
 
 * 🔐 JWT authentication
-* 🌍 Deploy with domain + SSL
-* ⚡ Redis caching
-* 📊 Admin dashboard
+* 📊 Advanced stats endpoints
+* 🌍 Deploy with domain
 * 💰 Paid API system
 
 ---
 
-## 👨‍💻 Author
+## 🧪 Test
 
-Your Name
+```bash
+curl -H "x-api-key: your_secret_key" \
+"http://localhost:3000/api/player?uid=12345678"
+```
 
 ---
 
 ## 📄 License
 
-MIT License
+MIT
